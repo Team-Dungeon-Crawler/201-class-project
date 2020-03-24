@@ -11,6 +11,9 @@ function Monster(name, health, attack, monsterId, description) {
 }
 
 Monster.prototype.battle = function(character) {
+
+var attackButton = document.getElementById('attack');
+
 var targetCharacter = character;
 var monsterRandomAttack = (Math.ceil(Math.random() * this.attack));
 var characterRandomAttack = (Math.ceil(Math.random() * targetCharacter.attack));
@@ -25,30 +28,25 @@ var deathMessage = document.createElement('h1');
 deathMessage.setAttribute('id', 'deathMessage');
 deathMessage.textContent = "You Died";
 } else if ((this.health - characterRandomAttack) <= 0) {
-  for (var i; i < allMonsters.length; i++) {
-    if (this.monsterId === allMonsters[i].monsterId) {
-    allMonsters.splice(i, 1);
-    console.log(allMonsters)
-    var removeMonsterCell = document.getElementById(this.monsterId);
-    removeMonsterCell.removeAttribute("id");
-    roomDetect();
+    for (var i = 0; i < allMonsters.length; i++) {
+      if (this.monsterId === allMonsters[i].monsterId) {
+      allMonsters.splice(i, 1);
+      console.log(allMonsters)
+      var removeMonsterCell = document.getElementById(this.monsterId);
+      removeMonsterCell.removeAttribute("id");
+      roomDetect();
     }
   }
 } else { 
-  var displayCombatInforEl = document.getElementById('combat-info')
-  displayCombatInforEl.innerHTML = '';
+  var displayCombatInfoEl = document.getElementById('combat-info')
+  displayCombatInfoEl.innerHTML = '';
   var displayMonsterDescriptionP = document.createElement('p');
   displayMonsterDescriptionP.textContent = this.description;
-  displayCombatInforEl.appendChild(displayMonsterDescriptionP);
+  displayCombatInfoEl.appendChild(displayMonsterDescriptionP);
   var displayCombatP = document.createElement('p');
   displayCombatP.textContent = (targetCharacter.name + ' is damaged by ' + this.name + '\'s Attack roll of ' + monsterRandomAttack + ' resulted in it only having ' +targetCharacter.health+ ' health left ! ' + this.name + ' is damaged by ' + targetCharacter.name + '\'s Attack roll of ' + characterRandomAttack + ' resulted in it only having ' + this.health+ ' health left ! ');
-  displayCombatInforEl.appendChild(displayCombatP);  
-} 
-
-}
-// Monster.prototype.displayDescription
-
-var goblinDescription = 'A small green vile creature stands before you, and it engages you in combat with a spear!';
+  displayCombatInfoEl.appendChild(displayCombatP);  
+  } 
 var bossDescription = 'A pale wizard with sunken eyes in a pitch black robe glares at you with murderous intent as he invokes arcane forces which may spell your DOOM!';
 
 var goblin1 = new Monster('Goblin', 15, 30, 'goblin1', goblinDescription);
