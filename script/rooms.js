@@ -1,8 +1,9 @@
 'use strict';
-
+var allMonsters = [];
 // eslint-disable-next-line no-undef
 var testCharacter = new Character('Test', 100, 40, 1, 1);
-var goblin1 = new Monster('Goblin', 15, 30, 'goblin1', goblinDescription)
+var goblin1 = new Monster('Goblin', 15, 30, 'goblin1', goblinDescription);
+var boss = new Monster('Evil Wizard', 75, 50, 'boss', bossDescription);
 
 // hardcoded values
 var xValue = 4;
@@ -12,6 +13,7 @@ var moveUpButton = document.getElementById('move-up');
 var moveRightButton = document.getElementById('move-right');
 var moveDownButton = document.getElementById('move-down');
 var moveLeftButton = document.getElementById('move-left');
+var attackButton = document.getElementById('attack');
 
 gameLoop();
 
@@ -21,8 +23,8 @@ function roomDetect() {
     removeEventListeners();
     for (var i = 0; i < allMonsters.length; i++) {
       if (currentCellEl.id === allMonsters[i].monsterId) {
-        allMonsters[i].battle(testCharacter);
-        // if(allMonsters[i].isActive === flase) {
+        battleEvent();
+        // if(allMonsters[i].isActive === false) {
         //   move();
         // }
       }
@@ -114,3 +116,69 @@ function move() {
     }
   });
 }
+
+function battleEvent(character, monster) {
+  attackButton.addEventListener('click', function(event) {
+    while (character.health > 0 || monster.health <= 0) {
+      var monsterRandomAttack = (Math.ceil(Math.random() * monster.attack));
+      var characterRandomAttack = (Math.ceil(Math.random() * character.attack));
+      character.health = (character.health - monsterRandomAttack);
+      monster.health = (monster.health - characterRandomAttack);
+      if(monster.health <= 0) {
+        monster.monsterDeath();
+      }
+      if(character.health <= 0) {
+        deathDisplay();
+      }
+    }
+  });
+  attackButton.removeEventListener();
+}
+
+function deathDisplay() {
+  var deathScreen = document.getElementsByTagName('body');
+  deathScreen.setAttribute('id', 'deathScreen');
+  deathScreen.innerHTML = "";
+  var deathMessage = document.createElement('h1');
+  deathMessage.setAttribute('id', 'deathMessage');
+  deathMessage.textContent = "You Died";
+}
+
+
+// function battleEvent (character, monster) {
+//   var targetCharacter = character;
+//   var monsterRandomAttack = (Math.ceil(Math.random() * monster.attack));
+//   var characterRandomAttack = (Math.ceil(Math.random() * targetCharacter.attack));
+//   targetCharacter.health = (targetCharacter.health - monsterRandomAttack);
+//   monster.health = (monster.health - characterRandomAttack);
+
+//   // if ((targetCharacter.health - monsterRandomAttack) <=0) {
+//   //   deathDisplay();
+//   // } else if ((monster.health - characterRandomAttack) <= 0) {
+//   //   monster.monsterDeath();
+//   } while ((monster.health - characterRandomAttack) > 0) { 
+//     //monster.displayCombat();
+//     attackButton.addEventListener('click', function(event) {
+      
+//       if ((targetCharacter.health - monsterRandomAttack) <=0) {
+//         deathDisplay();
+//       } else if ((monster.health - characterRandomAttack) <= 0) {
+//         monster.monsterDeath();
+//       } 
+//     };
+//   }
+// }
+
+// 1. user see monster
+// 2. user need to click on Attack button
+// 3. calc damage for both
+// 4. chaeck healt for both
+// 5. if monster dead { user move }
+// 6. if user dead { end game }
+// 7. Atack one more  time 
+
+// function attackButton(event) {
+//   event.preventDefault();
+//   attackButton.addEventListener('click', battle);
+
+// }
