@@ -144,6 +144,16 @@ function deathDisplay() {
   deathMessage.textContent = "You Died";
 }
 
+function displayCombat(character, monster) {
+  var displayCombatInfoEl = document.getElementById('combat-info')
+  displayCombatInfoEl.innerHTML = '';
+  var displayMonsterDescriptionP = document.createElement('p');
+  displayMonsterDescriptionP.textContent = this.description;
+  displayCombatInfoEl.appendChild(displayMonsterDescriptionP);
+  var displayCombatP = document.createElement('p');
+  displayCombatP.textContent = (character.name + ' is damaged by ' + monster.name + '\'s Attack roll of ' + monsterRandomAttack + ' resulted in it only having ' + character.health+ ' health left ! ' + monster.name + ' is damaged by ' + character.name + '\'s Attack roll of ' + characterRandomAttack + ' resulted in it only having ' + this.health+ ' health left ! ');
+  displayCombatInfoEl.appendChild(displayCombatP);
+}
 
 // function battleEvent (character, monster) {
 //   var targetCharacter = character;
