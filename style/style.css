@@ -118,10 +118,6 @@ footer {
   color: hsla(360, 100%, 41%, 0.6);
   font-family: 'Old Standard TT', serif;
   text-align: center;
-  /* display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 200px; */
 }
 
 #reset {
