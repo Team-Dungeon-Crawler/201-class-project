@@ -2,8 +2,14 @@
 var allMonsters = [];
 // eslint-disable-next-line no-undef
 var testCharacter = new Character('Test', 100, 40, 1, 1);
-var goblin1 = new Monster('Goblin', 1, 30, 'goblin1', 'goblinDescription');
-var boss = new Monster('Evil Wizard', 75, 30, 'boss', 'bossDescription');
+
+var goblinDescription = 'A squat small green skinned vile barely humanoid creature with a long hooked nose and bat-like ears stands before you, and it snarls as it engages you in combat with a spear!';
+var bossDescription = 'A pale wizard with sunken eyes in a pitch black robe glares at you with murderous intent as he invokes arcane forces which may spell your DOOM!!!';
+
+var goblin1 = new Monster('Goblin', 1, 30, 'goblin1', goblinDescription);
+var boss = new Monster('Evil Wizard', 75, 50, 'boss', bossDescription);
+
+var displayCombatInfoEl = document.getElementById('combat-info');
 
 // hardcoded values
 var xValue = 4;
@@ -40,12 +46,20 @@ function gameLoop() {
 
 }
 
+function displayMonsterDescription(monster) {
+  displayCombatInfoEl.innerHTML = '';
+  var displayMonsterDescriptionP = document.createElement('p');
+  displayMonsterDescriptionP.textContent = monster.description;
+  displayCombatInfoEl.appendChild(displayMonsterDescriptionP);
+}
+
 function roomDetect() {
   var currentCellEl = document.getElementById('table').rows[testCharacter.xPosition].cells[testCharacter.yPosition];
   if (currentCellEl.id) {
     removeEventListeners();
     for (var i = 0; i < allMonsters.length; i++) {
       if (currentCellEl.id === allMonsters[i].monsterId) {
+        displayMonsterDescription(allMonsters[i]);
         battleEvent(testCharacter, allMonsters[i]);
       }
     }
@@ -131,6 +145,8 @@ function removeEventListeners() {
   moveRightButton.removeEventListener('click', moveRight);
 }
 
+
+
 function battleEvent(character, monster) {
   attackButton.style.display = 'block';
   attackButton.addEventListener('click', function(event) {
@@ -140,6 +156,7 @@ function battleEvent(character, monster) {
       console.log(characterRandomAttack, monsterRandomAttack, character.health, monster.health)
       character.health = (character.health - monsterRandomAttack);
       monster.health = (monster.health - characterRandomAttack);
+      displayCombat(character, monster, characterRandomAttack, monsterRandomAttack);
       if(monster.health <= 0) {
         monster.monsterDeath();
         attackButton.style.display = "none";
@@ -199,11 +216,11 @@ function victoryDisplay() {
 
 }
 
-function displayCombat(character, monster) {
+function displayCombat(character, monster, characterRandomAttack, monsterRandomAttack) {
   var displayCombatInfoEl = document.getElementById('combat-info')
   displayCombatInfoEl.innerHTML = '';
   var displayMonsterDescriptionP = document.createElement('p');
-  displayMonsterDescriptionP.textContent = this.description;
+  displayMonsterDescriptionP.textContent = monster.description;
   displayCombatInfoEl.appendChild(displayMonsterDescriptionP);
   var displayCombatP = document.createElement('p');
   displayCombatP.textContent = (character.name + ' is damaged by ' + monster.name + '\'s Attack roll of ' + monsterRandomAttack + ' resulted in it only having ' + character.health+ ' health left ! ' + monster.name + ' is damaged by ' + character.name + '\'s Attack roll of ' + characterRandomAttack + ' resulted in it only having ' + monster.health+ ' health left ! ');
