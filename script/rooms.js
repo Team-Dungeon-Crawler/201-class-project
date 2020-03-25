@@ -1,7 +1,7 @@
 'use strict';
 var allMonsters = [];
 // eslint-disable-next-line no-undef
-var testCharacter = new Character('Test', 100, 40, 1, 1);
+var testCharacter = new Character('Test', 1, 40, 1, 1);
 var goblin1 = new Monster('Goblin', 1, 30, 'goblin1', 'goblinDescription');
 var boss = new Monster('Evil Wizard', 75, 50, 'boss', 'bossDescription');
 
@@ -156,13 +156,26 @@ function battleEvent(character, monster) {
 
 
 function deathDisplay() {
+
   var deathScreen = document.getElementsByTagName('body')[0];
   deathScreen.setAttribute('id', 'deathScreen');
   deathScreen.innerHTML = '';
+  deathScreen.style.backgroundColor = "black"
+
+  var deathContainer = document.createElement('section');
+  deathContainer.setAttribute('id', 'deathContainer');
+  deathScreen.appendChild(deathContainer);
+
   var deathMessage = document.createElement('h1');
   deathMessage.setAttribute('id', 'deathMessage');
-  deathMessage.textContent = "You Died";
-  deathScreen.appendChild(deathMessage);
+  deathMessage.textContent = "YOU DIED";
+  deathContainer.appendChild(deathMessage);
+
+  var resetButton = document.createElement('div');
+  resetButton.setAttribute('id', 'reset');
+  resetButton.innerHTML = '<button onclick="location.reload();">Click here to try again!</button>'
+  deathContainer.appendChild(resetButton);
+
 }
 
 function displayCombat(character, monster) {
