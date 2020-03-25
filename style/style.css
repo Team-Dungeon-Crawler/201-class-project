@@ -106,12 +106,13 @@ footer {
 
 #deathContainer {
   position: absolute;
-    top: 45%;
-    left: 38%;
-    margin-top: -50px;
-    margin-left: -50px;
-    width: 500px;
-    height: 200px;
+  top: 45%;
+  top: 50%;
+  left: 38%;
+  margin-top: -50px;
+  margin-left: -50px;
+  width: 500px;
+  height: 200px;
 }
 
 #deathMessage {
@@ -125,6 +126,7 @@ footer {
   margin: 0 auto;
   font-size: 18px;
   width: 150px;
+
 }
 
 #victoryScreen {
@@ -153,4 +155,5 @@ footer {
   margin: 0 auto;
   font-size: 18px;
   width: 150px;
+
 }
