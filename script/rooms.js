@@ -145,10 +145,29 @@ function battleEvent(character, monster) {
 function deathDisplay() {
   var deathScreen = document.getElementsByTagName('body');
   deathScreen.setAttribute('id', 'deathScreen');
+
   deathScreen.innerHTML = "";
   var deathMessage = document.createElement('h1');
   deathMessage.setAttribute('id', 'deathMessage');
   deathMessage.textContent = "You Died";
+  
+  deathScreen.innerHTML = '';
+  deathScreen.style.backgroundColor = "black"
+
+  var deathContainer = document.createElement('section');
+  deathContainer.setAttribute('id', 'deathContainer');
+  deathScreen.appendChild(deathContainer);
+
+  var deathMessage = document.createElement('h1');
+  deathMessage.setAttribute('id', 'deathMessage');
+  deathMessage.textContent = "YOU DIED";
+  deathContainer.appendChild(deathMessage);
+
+  var resetButton = document.createElement('div');
+  resetButton.setAttribute('id', 'reset');
+  resetButton.innerHTML = '<button onclick="location.reload();">Click here to try again!</button>'
+  deathContainer.appendChild(resetButton);
+
 }
 
 function displayCombat(character, monster) {
