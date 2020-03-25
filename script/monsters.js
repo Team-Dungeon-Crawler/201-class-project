@@ -16,7 +16,9 @@ Monster.prototype.monsterDeath = function() {
     var removeMonsterCell = document.getElementById(this.monsterId);
     removeMonsterCell.removeAttribute("id");
     roomDetect();
-    console.log('death')
+    if (allMonsters.length <= 0) {
+      victoryDisplay();
+    }
     }
   }
 }

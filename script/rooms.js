@@ -3,7 +3,7 @@ var allMonsters = [];
 // eslint-disable-next-line no-undef
 var testCharacter = new Character('Test', 100, 40, 1, 1);
 var goblin1 = new Monster('Goblin', 1, 30, 'goblin1', 'goblinDescription');
-var boss = new Monster('Evil Wizard', 75, 50, 'boss', 'bossDescription');
+var boss = new Monster('Evil Wizard', 75, 30, 'boss', 'bossDescription');
 
 // hardcoded values
 var xValue = 4;
@@ -176,6 +176,29 @@ function deathDisplay() {
   deathContainer.appendChild(resetButton);
 }
 
+function victoryDisplay() {
+
+    var victoryScreen = document.getElementsByTagName('body')[0];
+    victoryScreen.setAttribute('id', 'victoryScreen');
+    victoryScreen.innerHTML = '';
+    victoryScreen.style.backgroundColor = "dfcdc3";
+
+    var victoryContainer = document.createElement('section');
+    victoryContainer.setAttribute('id', 'victoryContainer');
+    victoryScreen.appendChild(victoryContainer);
+  
+    var victoryMessage = document.createElement('h1');
+    victoryMessage.setAttribute('id', 'victoryMessage');
+    victoryMessage.textContent = "Congratulations! You beat The Dungeon!";
+    victoryContainer.appendChild(victoryMessage);
+  
+    var newGame = document.createElement('div');
+    newGame.setAttribute('id', 'new-game');
+    newGame.innerHTML = '<button onclick="location.reload();">Click to challenge The Dungeon again!</button>'
+    victoryContainer.appendChild(newGame);
+
+}
+
 function displayCombat(character, monster) {
   var displayCombatInfoEl = document.getElementById('combat-info')
   displayCombatInfoEl.innerHTML = '';
@@ -188,4 +211,3 @@ function displayCombat(character, monster) {
 }
 
 gameLoop();
-

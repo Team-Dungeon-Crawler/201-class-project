@@ -106,7 +106,7 @@ footer {
 
 #deathContainer {
   position: absolute;
-    top: 50%;
+    top: 45%;
     left: 38%;
     margin-top: -50px;
     margin-left: -50px;
@@ -122,6 +122,34 @@ footer {
 }
 
 #reset {
+  margin: 0 auto;
+  font-size: 18px;
+  width: 150px;
+}
+
+#victoryScreen {
+  width: 1000px;
+  height: 800px;
+}
+
+#victoryContainer {
+  position: absolute;
+    top: 40%;
+    left: 38%;
+    margin-top: -50px;
+    margin-left: -50px;
+    width: 500px;
+    height: 200px;
+}
+
+#victoryMessage {
+  font-size: 80px;
+  color: hsla(360, 100%, 41%, 0.6);
+  font-family: 'Old Standard TT', serif;
+  text-align: center;
+}
+
+#new-game {
   margin: 0 auto;
   font-size: 18px;
   width: 150px;
