@@ -131,6 +131,11 @@ function removeEventListeners() {
   moveRightButton.removeEventListener('click', moveRight);
 }
 
+function play() {
+  var audio = document.getElementById("audio");
+  audio.play();
+}
+
 function battleEvent(character, monster) {
   attackButton.style.display = 'block';
   attackButton.addEventListener('click', function(event) {
