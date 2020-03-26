@@ -43,8 +43,10 @@ function gameLoop() {
   // put monster in the cell
   var testMonsterCell = document.getElementById('table').rows[2].cells[2];
   var testMonsterCell2 = document.getElementById('table').rows[2].cells[1];
+  var testMonsterCell3 = document.getElementById('table').rows[2].cells[0];
   testMonsterCell.setAttribute('id', allMonsters[0].monsterId);
   testMonsterCell2.setAttribute('id', allMonsters[1].monsterId);
+  testMonsterCell3.setAttribute('id', allMonsters[2].monsterId);
 
   move();
   roomDetect();
@@ -134,7 +136,6 @@ var moveLeft = function(event) {
 
 // movement event listeners
 function move() {
-  console.log('move test');
   moveUpButton.addEventListener('click', moveUp);
   moveRightButton.addEventListener('click', moveRight);
   moveDownButton.addEventListener('click', moveDown);
@@ -152,8 +153,6 @@ function removeEventListeners() {
 function storeBattleLog() {
   localStorage.setItem('battleEvent', JSON.stringify(battleArray));
 }
-console.log(localStorage);
-
 
 function battleEvent(character, monster) {
   attackButton.style.display = 'block';
@@ -180,7 +179,6 @@ function battleEvent(character, monster) {
     }
   });
 }
-
 
 function deathDisplay() {
   var deathScreen = document.getElementsByTagName('body')[0];
@@ -247,11 +245,20 @@ function monsterDeath (monster) {
       // allMonsters.splice(i, 1);
         delete(allMonsters[i]);
         console.log(allMonsters);
+        console.log(allMonsters.length);
+        console.log(allMonsters[0]);
+        console.log(allMonsters[1]);
+        console.log(allMonsters[i]);
         var removeMonsterCell = document.getElementById(monster.monsterId);
         removeMonsterCell.removeAttribute('id');
         roomDetect();
-        if (allMonsters.length <= 0) {
-          victoryDisplay();
+        var isVictoryDisplay = 0;
+          for (var j = 0; j < allMonsters.length; j++) {
+            if (allMonsters[j]) {
+              isVictoryDisplay++;
+            } 
+          } if (isVictoryDisplay === 0) {
+            victoryDisplay();
         }
       }
     }
@@ -273,5 +280,5 @@ function displayCombat(character, monster, characterRandomAttack, monsterRandomA
 }
 
 gameLoop();
-
+console.log(allMonsters);
 
