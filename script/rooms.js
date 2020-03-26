@@ -186,7 +186,6 @@ function deathDisplay() {
   var deathScreen = document.getElementsByTagName('body')[0];
   deathScreen.setAttribute('id', 'deathScreen');
   deathScreen.innerHTML = '';
-  deathScreen.style.backgroundColor = 'black';
 
   var deathContainer = document.createElement('section');
   deathContainer.setAttribute('id', 'deathContainer');
@@ -194,13 +193,39 @@ function deathDisplay() {
 
   var deathMessage = document.createElement('h1');
   deathMessage.setAttribute('id', 'deathMessage');
-  deathMessage.textContent = 'YOU DIED';
+  deathMessage.textContent = "YOU DIED";
   deathContainer.appendChild(deathMessage);
 
   var resetButton = document.createElement('div');
   resetButton.setAttribute('id', 'reset');
-  resetButton.innerHTML = '<button onclick="location.reload();">Click here to try again!</button>';
+  resetButton.innerHTML = '<button onclick="location.reload();">Click here to try again!</button>'
   deathContainer.appendChild(resetButton);
+}
+
+function victoryDisplay() {
+
+  var victoryScreen = document.getElementsByTagName('body')[0];
+  victoryScreen.setAttribute('id', 'victoryScreen');
+  victoryScreen.innerHTML = '';
+
+  var victoryContainer = document.createElement('section');
+  victoryContainer.setAttribute('id', 'victoryContainer');
+  victoryScreen.appendChild(victoryContainer);
+
+  var victoryMessage = document.createElement('h1');
+  victoryMessage.setAttribute('id', 'victoryMessage');
+  victoryMessage.innerHTML = 'Congratulations!';
+  victoryContainer.appendChild(victoryMessage);
+
+  var victoryText = document.createElement('h2');
+  victoryText.setAttribute('id', 'victoryText');
+  victoryText.innerHTML = "You beat the Dungeon!";
+  victoryContainer.appendChild(victoryText);
+
+  var newGame = document.createElement('div');
+  newGame.setAttribute('id', 'new-game');
+  newGame.innerHTML = '<button onclick="location.reload();">Click to challenge The Dungeon again!</button>'
+  victoryContainer.appendChild(newGame);
 }
 
 function monsterDeath (monster) {
@@ -219,29 +244,6 @@ function monsterDeath (monster) {
       }
     }
   }
-}
-
-function victoryDisplay() {
-
-  var victoryScreen = document.getElementsByTagName('body')[0];
-  victoryScreen.setAttribute('id', 'victoryScreen');
-  victoryScreen.innerHTML = '';
-  victoryScreen.style.backgroundColor = 'dfcdc3';
-
-  var victoryContainer = document.createElement('section');
-  victoryContainer.setAttribute('id', 'victoryContainer');
-  victoryScreen.appendChild(victoryContainer);
-
-  var victoryMessage = document.createElement('h1');
-  victoryMessage.setAttribute('id', 'victoryMessage');
-  victoryMessage.textContent = 'Congratulations! You beat The Dungeon!';
-  victoryContainer.appendChild(victoryMessage);
-
-  var newGame = document.createElement('div');
-  newGame.setAttribute('id', 'new-game');
-  newGame.innerHTML = '<button onclick="location.reload();">Click to challenge The Dungeon again!</button>';
-  victoryContainer.appendChild(newGame);
-
 }
 
 function displayCombat(character, monster, characterRandomAttack, monsterRandomAttack) {
