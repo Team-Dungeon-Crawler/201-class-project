@@ -3,18 +3,15 @@
 import { Character } from './character.js';
 import { Monster } from './monsters.js';
 
-// var allMonsters = localStorage.getItem(JSON.parse(monsters));
 var allMonsters = JSON.parse(localStorage.getItem('monsters'));
 for (var i = 0; i < allMonsters.length; i++) {
   allMonsters[i] = Object.setPrototypeOf(allMonsters[i], Monster.prototype);
 }
+allMonsters = allMonsters[0];
 var character = Object.setPrototypeOf(JSON.parse(localStorage.getItem('character')), Character.prototype);
 var coordinates = JSON.parse(localStorage.getItem('coordinates'));
 
-//eslint-disable-next-line no-undef
-// var testCharacter = new Character('Test', 100, 40, 1, 1);
-// var goblin1 = new Monster('Goblin', 1, 30, 'goblin1', 'goblinDescription');
-// var boss = new Monster('Evil Wizard', 75, 50, 'boss', 'bossDescription');
+var battleArray = [];
 
 var displayCombatInfoEl = document.getElementById('combat-info');
 
@@ -66,9 +63,11 @@ function roomDetect() {
   if (currentCellEl.id) {
     removeEventListeners();
     for (var i = 0; i < allMonsters.length; i++) {
-      if (currentCellEl.id === allMonsters[i].monsterId) {
-        displayMonsterDescription(allMonsters[i]);
-        battleEvent(testCharacter, allMonsters[i]);
+      if(allMonsters[i]) {
+        if (currentCellEl.id === allMonsters[i].monsterId) {
+          displayMonsterDescription(allMonsters[i]);
+          battleEvent(character, allMonsters[i]);
+        }
       }
     }
   } else {
@@ -76,8 +75,6 @@ function roomDetect() {
   }
   console.log(currentCellEl.id + ' is monster in room');
 }
-
-
 
 function renderTable(xNumberOfCells, yNumberOfCells) {
   var table = document.getElementById('table');
@@ -145,7 +142,7 @@ function move() {
 }
 
 function removeEventListeners() {
-  console.log('removed event listener')
+  console.log('removed event listener');
   moveUpButton.removeEventListener('click', moveUp);
   moveDownButton.removeEventListener('click', moveDown);
   moveLeftButton.removeEventListener('click', moveLeft);
@@ -160,17 +157,18 @@ console.log(localStorage);
 
 function battleEvent(character, monster) {
   attackButton.style.display = 'block';
+  // eslint-disable-next-line no-unused-vars
   attackButton.addEventListener('click', function(event) {
     while (character.health > 0 || monster.health > 0) {
       var monsterRandomAttack = (Math.ceil(Math.random() * monster.attack));
       var characterRandomAttack = (Math.ceil(Math.random() * character.attack));
-      console.log(characterRandomAttack, monsterRandomAttack, character.health, monster.health)
+      console.log(characterRandomAttack, monsterRandomAttack, character.health, monster.health);
       character.health = (character.health - monsterRandomAttack);
       monster.health = (monster.health - characterRandomAttack);
       displayCombat(character, monster, characterRandomAttack, monsterRandomAttack);
       storeBattleLog();
       if(monster.health <= 0) {
-        monster.monsterDeath();
+        monsterDeath(monster);
         attackButton.style.display = 'none';
         break;
       }
@@ -188,7 +186,7 @@ function deathDisplay() {
   var deathScreen = document.getElementsByTagName('body')[0];
   deathScreen.setAttribute('id', 'deathScreen');
   deathScreen.innerHTML = '';
-  deathScreen.style.backgroundColor = "black"
+  deathScreen.style.backgroundColor = 'black';
 
   var deathContainer = document.createElement('section');
   deathContainer.setAttribute('id', 'deathContainer');
@@ -196,40 +194,58 @@ function deathDisplay() {
 
   var deathMessage = document.createElement('h1');
   deathMessage.setAttribute('id', 'deathMessage');
-  deathMessage.textContent = "YOU DIED";
+  deathMessage.textContent = 'YOU DIED';
   deathContainer.appendChild(deathMessage);
 
   var resetButton = document.createElement('div');
   resetButton.setAttribute('id', 'reset');
-  resetButton.innerHTML = '<button onclick="location.reload();">Click here to try again!</button>'
+  resetButton.innerHTML = '<button onclick="location.reload();">Click here to try again!</button>';
   deathContainer.appendChild(resetButton);
+}
+
+function monsterDeath (monster) {
+  for (var i = 0; i < allMonsters.length; i++) {
+    if(allMonsters[i]) {
+      if (monster.monsterId === allMonsters[i].monsterId) {
+      // allMonsters.splice(i, 1);
+        delete(allMonsters[i]);
+        console.log(allMonsters);
+        var removeMonsterCell = document.getElementById(monster.monsterId);
+        removeMonsterCell.removeAttribute('id');
+        roomDetect();
+        if (allMonsters.length <= 0) {
+          victoryDisplay();
+        }
+      }
+    }
+  }
 }
 
 function victoryDisplay() {
 
-    var victoryScreen = document.getElementsByTagName('body')[0];
-    victoryScreen.setAttribute('id', 'victoryScreen');
-    victoryScreen.innerHTML = '';
-    victoryScreen.style.backgroundColor = "dfcdc3";
+  var victoryScreen = document.getElementsByTagName('body')[0];
+  victoryScreen.setAttribute('id', 'victoryScreen');
+  victoryScreen.innerHTML = '';
+  victoryScreen.style.backgroundColor = 'dfcdc3';
 
-    var victoryContainer = document.createElement('section');
-    victoryContainer.setAttribute('id', 'victoryContainer');
-    victoryScreen.appendChild(victoryContainer);
-  
-    var victoryMessage = document.createElement('h1');
-    victoryMessage.setAttribute('id', 'victoryMessage');
-    victoryMessage.textContent = "Congratulations! You beat The Dungeon!";
-    victoryContainer.appendChild(victoryMessage);
-  
-    var newGame = document.createElement('div');
-    newGame.setAttribute('id', 'new-game');
-    newGame.innerHTML = '<button onclick="location.reload();">Click to challenge The Dungeon again!</button>'
-    victoryContainer.appendChild(newGame);
+  var victoryContainer = document.createElement('section');
+  victoryContainer.setAttribute('id', 'victoryContainer');
+  victoryScreen.appendChild(victoryContainer);
+
+  var victoryMessage = document.createElement('h1');
+  victoryMessage.setAttribute('id', 'victoryMessage');
+  victoryMessage.textContent = 'Congratulations! You beat The Dungeon!';
+  victoryContainer.appendChild(victoryMessage);
+
+  var newGame = document.createElement('div');
+  newGame.setAttribute('id', 'new-game');
+  newGame.innerHTML = '<button onclick="location.reload();">Click to challenge The Dungeon again!</button>';
+  victoryContainer.appendChild(newGame);
 
 }
 
 function displayCombat(character, monster, characterRandomAttack, monsterRandomAttack) {
-  var displayCombatInfoEl = document.getElementById('combat-info')
+  var displayCombatInfoEl = document.getElementById('combat-info');
   displayCombatInfoEl.innerHTML = '';
   var displayMonsterDescriptionP = document.createElement('p');
   displayMonsterDescriptionP.textContent = monster.description;
@@ -237,6 +253,7 @@ function displayCombat(character, monster, characterRandomAttack, monsterRandomA
   var displayCombatP = document.createElement('p');
   displayCombatP.textContent = (character.name + ' is damaged by ' + monster.name + '\'s Attack roll of ' + monsterRandomAttack + ' resulted in it only having ' + character.health+ ' health left ! ' + monster.name + ' is damaged by ' + character.name + '\'s Attack roll of ' + characterRandomAttack + ' resulted in it only having ' + monster.health+ ' health left ! ');
   displayCombatInfoEl.appendChild(displayCombatP);
+
 }
 
 gameLoop();
@@ -245,18 +262,19 @@ function detectBattleEventStorage() {
   var storedBattleEvent = localStorage.getItem('battleEvent');
   if (storedBattleEvent) {
     battleArray = JSON.parse(storedBattleEvent);
-    displayBattleLogList()
+    displayBattleLogList();
   }
 }
 
 function displayBattleLogList() {
-  var displayBattleLogEl = document.getElementById('displayBattleLog')
+  var displayBattleLogEl = document.getElementById('displayBattleLog');
   for (var resultIndex = 0; resultIndex < battleArray.length; resultIndex++) {
-      var displayBattleLog = battleArray[resultIndex];
-      var updateBattleLog = document.createElement('li');
-      var rewriteContentToList = displayBattleLog;
-      updateBattleLog.textContent = rewriteContentToList;
-      displayBattleLogEl.appendChild(updateBattleLog);
- }
+    var displayBattleLog = battleArray[resultIndex];
+    var updateBattleLog = document.createElement('li');
+    var rewriteContentToList = displayBattleLog;
+    updateBattleLog.textContent = rewriteContentToList;
+    displayBattleLogEl.appendChild(updateBattleLog);
+  }
 }
-detectBattleEventStorage()
+
+detectBattleEventStorage();
