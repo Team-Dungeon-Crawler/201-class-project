@@ -145,6 +145,10 @@ function removeEventListeners() {
   moveRightButton.removeEventListener('click', moveRight);
 }
 
+function storeBattleLog() {
+  localStorage.setItem('battleEvent', JSON.stringify(battleArray));
+}
+console.log(localStorage);
 
 
 function battleEvent(character, monster) {
@@ -157,6 +161,7 @@ function battleEvent(character, monster) {
       character.health = (character.health - monsterRandomAttack);
       monster.health = (monster.health - characterRandomAttack);
       displayCombat(character, monster, characterRandomAttack, monsterRandomAttack);
+      storeBattleLog();
       if(monster.health <= 0) {
         monster.monsterDeath();
         attackButton.style.display = "none";
@@ -228,3 +233,23 @@ function displayCombat(character, monster, characterRandomAttack, monsterRandomA
 }
 
 gameLoop();
+
+function detectBattleEventStorage() {
+  var storedBattleEvent = localStorage.getItem('battleEvent');
+  if (storedBattleEvent) {
+    battleArray = JSON.parse(storedBattleEvent);
+    displayBattleLogList()
+  }
+}
+
+function displayBattleLogList() {
+  var displayBattleLogEl = document.getElementById('displayBattleLog')
+  for (var resultIndex = 0; resultIndex < battleArray.length; resultIndex++) {
+      var displayBattleLog = battleArray[resultIndex];
+      var updateBattleLog = document.createElement('li');
+      var rewriteContentToList = displayBattleLog;
+      updateBattleLog.textContent = rewriteContentToList;
+      displayBattleLogEl.appendChild(updateBattleLog);
+ }
+}
+detectBattleEventStorage()
