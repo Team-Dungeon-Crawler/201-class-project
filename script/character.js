@@ -1,5 +1,7 @@
 'use strict';
 
+export { Character };
+
 // this.xPosition and this.yPosition are hardcoded values
 function Character(name, health, attack, xPosition, yPosition) {
   this.name = name;

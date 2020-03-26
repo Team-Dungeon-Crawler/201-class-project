@@ -1,4 +1,3 @@
-<!-- Hello everyone! -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -6,62 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dungeon Crawler!</title>
     <link rel="stylesheet" type="text/css" href="style/reset.css">
-    <link rel="stylesheet" type="text/css" href="style/style.css">
+    <link rel="stylesheet" type="text/css" href="style/homePage.css">
   </head>
   <body>
     <header>
       <h1>The Dungeon</h1>
     </header>
     <main>
-      <aside id="about-us" class="info">
-        <p>about section</p>
-        <ul id="displayBattleLog">
-
-        </ul>
-      </aside>
-      <section id="game-area">
-        <div class="table">
-          <table id="table">
-          </table>
-          <nav id="movement-keys">
-            <div>
-              <div id="up-key">
-                <button id="move-up">&nbsp&nbspUp&nbsp&nbsp</button>
-              </div>
-                <div id="left-attack-right">
-                  <div id="left-key">
-                    <button id="move-left">&nbspLeft&nbsp</button>
-                  </div>
-                  <div id="attack-key">
-                    <button id="attack">Attack</button>
-                  </div>
-                  <div id="right-key">
-                    <button id="move-right">Right</button>
-                  </div>
-                </div>
-              <div id="down-key">
-                <button id="move-down">Down</button>
-              </div>
-            </div>
-          </nav>       
-        </div>
-        <aside class="info">
-          <div id="game-info">
-            info box
-          </div>
-          <div id="combat-info">
-            <p>combat info section</p>
-          </div>
-        </aside>
-      </section>
+    <form id="form">
+        <fieldset>
+          <label for="characters">Choose a character:</label>
+            <select id="characters">
+              <option value="character1">character1</option>
+              <option value="character2">character2</option>
+              <option value="character3">character3</option>
+            </select>
+        </fieldset>
+        <fieldset>
+          <label for="levels">Choose a level:</label>
+            <select id="levels">
+              <option value="easy">easy</option>
+              <option value="medium">medium</option>
+              <option value="hard">hard</option>
+            </select>
+        </fieldset>
+        <fieldset>
+          <!-- <button id="start-game"><a href="map.html">Start</a></button> -->
+          <button id="start-game">Start</button>
+        </fieldset>
+      </form>
     </main>
     <footer>
       <p>&copy; Team Dungeon Crawler 2020</p>
       <p>All Rights Reserved</p>
     </footer>
-    <script src="script/monsters.js"></script>
-    <script src="script/character.js"></script>
-    <script src="script/rooms.js"></script>
+    <script type="module" src="script/character.js"></script>
+    <script type="module" src="script/monsters.js"></script>
+    <script type="module" src="script/homePage.js"></script>
   </body>
 </html>
             
