@@ -3,6 +3,7 @@
 import { Character } from './character.js';
 import { Monster } from './monsters.js';
 
+
 var allMonsters = JSON.parse(localStorage.getItem('monsters'));
 for (var i = 0; i < allMonsters.length; i++) {
   allMonsters[i] = Object.setPrototypeOf(allMonsters[i], Monster.prototype);
@@ -27,30 +28,42 @@ var moveLeftButton = document.getElementById('move-left');
 var attackButton = document.getElementById('attack');
 attackButton.style.display = 'none';
 
-// gameLoop();
-
 function gameLoop() {
-
   renderTable(xValue, yValue);
+  putCharactersOnBoard();
+  move();
+  roomDetect();
+}
 
+function putCharactersOnBoard() {
+  var cells = document.getElementsByTagName('td');
+  var allCharacters = allMonsters.length + 1;
+  var randomCells = getRandom(cells, allCharacters);
   // put character in the cell
-  var testCell = document.getElementById('table').rows[character.xPosition].cells[character.yPosition];
+  var characterCell = randomCells.shift();
   var spanEl = document.createElement('span');
   spanEl.setAttribute('id', character.name);
   spanEl.textContent = character.name;
-  testCell.appendChild(spanEl);
-
+  characterCell.appendChild(spanEl);
   // put monster in the cell
-  var testMonsterCell = document.getElementById('table').rows[2].cells[2];
-  var testMonsterCell2 = document.getElementById('table').rows[2].cells[1];
-  var testMonsterCell3 = document.getElementById('table').rows[2].cells[0];
-  testMonsterCell.setAttribute('id', allMonsters[0].monsterId);
-  testMonsterCell2.setAttribute('id', allMonsters[1].monsterId);
-  testMonsterCell3.setAttribute('id', allMonsters[2].monsterId);
+  for (var i = 0; i < allMonsters.length; i++) {
+    var monsterCell = randomCells[i];
+    monsterCell.setAttribute('id', allMonsters[i].monsterId);
+  }
+}
 
-  move();
-  roomDetect();
-
+function getRandom(arr, n) {
+  var result = new Array(n),
+    len = arr.length,
+    taken = new Array(len);
+  if (n > len)
+    throw new RangeError('getRandom: more elements taken than available');
+  while (n--) {
+    var x = Math.floor(Math.random() * len);
+    result[n] = arr[x in taken ? taken[x] : x];
+    taken[x] = --len in taken ? taken[len] : len;
+  }
+  return result;
 }
 
 function displayMonsterDescription(monster) {
@@ -191,7 +204,7 @@ function deathDisplay() {
 
   var deathMessage = document.createElement('h1');
   deathMessage.setAttribute('id', 'deathMessage');
-  deathMessage.textContent = "YOU DIED";
+  deathMessage.textContent = 'YOU DIED';
   deathContainer.appendChild(deathMessage);
 
   var resetButton = document.createElement('div');
@@ -223,7 +236,7 @@ function victoryDisplay() {
 
   var victoryText = document.createElement('h2');
   victoryText.setAttribute('id', 'victoryText');
-  victoryText.innerHTML = "You beat the Dungeon!";
+  victoryText.innerHTML = 'You beat the Dungeon!';
   victoryContainer.appendChild(victoryText);
 
   var newGame = document.createElement('div');
@@ -233,7 +246,7 @@ function victoryDisplay() {
   linkEl.appendChild(button);
   button.setAttribute('id', 'restart-button');
   linkEl.setAttribute('href', 'index.html');
-  button.textContent = 'Click to challenge a new Dungeon!'
+  button.textContent = 'Click to challenge a new Dungeon!';
   newGame.appendChild(linkEl);
   victoryContainer.appendChild(newGame);
 }
@@ -253,12 +266,12 @@ function monsterDeath (monster) {
         removeMonsterCell.removeAttribute('id');
         roomDetect();
         var isVictoryDisplay = 0;
-          for (var j = 0; j < allMonsters.length; j++) {
-            if (allMonsters[j]) {
-              isVictoryDisplay++;
-            } 
-          } if (isVictoryDisplay === 0) {
-            victoryDisplay();
+        for (var j = 0; j < allMonsters.length; j++) {
+          if (allMonsters[j]) {
+            isVictoryDisplay++;
+          }
+        } if (isVictoryDisplay === 0) {
+          victoryDisplay();
         }
       }
     }
