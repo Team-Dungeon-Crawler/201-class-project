@@ -1,0 +1,156 @@
+/* font for death screen */
+/* font-family: 'Old Standard TT', serif; */
+
+body {
+  background-color: antiquewhite;
+  width: 1000px;
+  margin: 0 auto;
+}
+
+header {
+  text-align: center;
+  text-decoration: underline;
+}
+
+h1 {
+  font-size: 50px;
+}
+
+#about-us {
+  border: 1px solid black;
+  display: inline-block;
+  height: 600px;
+  width: 200px;
+  vertical-align: top;
+  margin-right: 20px;
+}
+
+#game-area {
+  border: 1px solid black;
+  display: inline-block;
+  width: 750px;
+  height: 600px;
+}
+#game-area div:first-of-type {
+  display: inline-block;
+}
+
+#movement-keys {
+  height: 90px;
+  width: 160px;
+  text-align: center;
+  margin: 10px auto 0px auto;
+}
+
+#left-attack-right {
+  width: 150px;
+  margin: 10px 0px;
+}
+
+#left-key {
+  display: inline-block;
+}
+
+#attack-key {
+  display: inline-block;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+#right-key {
+  display: inline-block;
+}
+
+#game-area aside {
+  border: 1px solid black;
+  display: inline-block;
+  margin-top: 15px;
+  margin-left: 27px;
+  height: 470px;
+  vertical-align: top;
+}
+
+#game-info {
+  border: 1px solid black;
+  width: 170px;
+  height: 190px;
+}
+
+#combat-info {
+  border: 1px solid black;
+  margin-top: 10px;
+  width: 170px;
+  height: 235px;
+}
+
+table {
+  border: 1px solid black;
+  width: 500px;
+  height: 500px;
+}
+
+td {
+  border: 1px solid black;
+}
+
+footer {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 20px;
+}
+
+#deathScreen {
+  width: 1000px;
+  height: 800px;
+}
+
+#deathContainer {
+  position: absolute;
+    top: 45%;
+    left: 38%;
+    margin-top: -50px;
+    margin-left: -50px;
+    width: 500px;
+    height: 200px;
+}
+
+#deathMessage {
+  font-size: 80px;
+  color: hsla(360, 100%, 41%, 0.6);
+  font-family: 'Old Standard TT', serif;
+  text-align: center;
+}
+
+#reset {
+  margin: 0 auto;
+  font-size: 18px;
+  width: 150px;
+}
+
+#victoryScreen {
+  width: 1000px;
+  height: 800px;
+}
+
+#victoryContainer {
+  position: absolute;
+    top: 40%;
+    left: 38%;
+    margin-top: -50px;
+    margin-left: -50px;
+    width: 500px;
+    height: 200px;
+}
+
+#victoryMessage {
+  font-size: 80px;
+  color: hsla(360, 100%, 41%, 0.6);
+  font-family: 'Old Standard TT', serif;
+  text-align: center;
+}
+
+#new-game {
+  margin: 0 auto;
+  font-size: 18px;
+  width: 150px;
+}
