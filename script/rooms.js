@@ -198,7 +198,13 @@ function deathDisplay() {
 
   var resetButton = document.createElement('div');
   resetButton.setAttribute('id', 'reset');
-  resetButton.innerHTML = '<button onclick="location.reload();">Click here to try again!</button>'
+  var linkEl = document.createElement('a');
+  var button = document.createElement('button');
+  linkEl.appendChild(button);
+  button.setAttribute('id', 'reset-button');
+  linkEl.setAttribute('href', 'index.html');
+  button.textContent = 'Click to try again!';
+  resetButton.appendChild(linkEl);
   deathContainer.appendChild(resetButton);
 }
 
@@ -224,7 +230,13 @@ function victoryDisplay() {
 
   var newGame = document.createElement('div');
   newGame.setAttribute('id', 'new-game');
-  newGame.innerHTML = '<button onclick="location.reload();">Click to challenge The Dungeon again!</button>'
+  var linkEl = document.createElement('a');
+  var button = document.createElement('button');
+  linkEl.appendChild(button);
+  button.setAttribute('id', 'restart-button');
+  linkEl.setAttribute('href', 'index.html');
+  button.textContent = 'Click to challenge a new Dungeon!'
+  newGame.appendChild(linkEl);
   victoryContainer.appendChild(newGame);
 }
 
