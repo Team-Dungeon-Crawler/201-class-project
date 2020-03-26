@@ -46,14 +46,16 @@ var firebat2 = new Monster('Firebat', 5, 20, 'firebat2', firebatDescription);
 var firebat3 = new Monster('Firebat', 5, 20, 'firebat3', firebatDescription);
 var firebat4 = new Monster('Firebat', 5, 20, 'firebat4', firebatDescription);
 var firebat5 = new Monster('Firebat', 5, 20, 'firebat5', firebatDescription);
-var healingFairy = new Monster('Healing Fairy', 100, -15, 'healingFairy', healingFairyDescription);
+var healingFairy1 = new Monster('Healing Fairy', 100, -15, 'healingFairy1', healingFairyDescription);
+var healingFairy2 = new Monster('Healing Fairy', 100, -15, 'healingFairy2', healingFairyDescription);
+
 var allMonsters = [
   goblinrat1, goblinrat2, goblinrat3, goblinrat4, goblinrat5,
   goblin1, goblin2, goblin3, goblin4, goblin5,
   hobgoblin1, hobgoblin2, hobgoblin3, hobgoblin4, hobgoblin5,
   bugbear1, bugbear2, bugbear3, bugbear4, bugbear5,
   firebat1, firebat2, firebat3, firebat4, firebat5,
-  healingFairy];
+  healingFairy1, healingFairy2];
 
 
 var formEl = document.getElementById('form');
@@ -136,7 +138,7 @@ function getRandom(arr, n) {
 function detectBattleEventStorage() {
   var storedBattleEvent = localStorage.getItem('battleEvent');
   if (storedBattleEvent) {
-   var battleArray = JSON.parse(storedBattleEvent);
+    var battleArray = JSON.parse(storedBattleEvent);
     displayBattleLogList(battleArray);
   }
 }
