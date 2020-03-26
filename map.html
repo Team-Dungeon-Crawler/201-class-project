@@ -4,7 +4,9 @@
   <head>
     <script>
       var attack = new Audio();
+      var move = new Audio();
       attack.src = "sound/melee.mp3";
+      move.src = "sound/footstep.mp3";
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,22 +29,26 @@
           <nav id="movement-keys">
             <div>
               <div id="up-key">
-                <button id="move-up">&nbsp&nbspUp&nbsp&nbsp</button>
+                <a href="#" onmousedown="move.play()";>
+                <button id="move-up">&nbsp&nbspUp&nbsp&nbsp</button></a>
               </div>
                 <div id="left-attack-right">
+                  <a href="#" onmousedown="move.play()";>
                   <div id="left-key">
-                    <button id="move-left">&nbspLeft&nbsp</button>
+                    <button id="move-left">&nbspLeft&nbsp</button></a>
                   </div>
                   <div id="attack-key">
                     <a href="#" onmousedown="attack.play()";>
                     <button id="attack">Attack</button></a>
                   </div>
                   <div id="right-key">
-                    <button id="move-right">Right</button>
+                    <a href="#" onmousedown="move.play()";>
+                    <button id="move-right">Right</button></a>
                   </div>
                 </div>
               <div id="down-key">
-                <button id="move-down">Down</button>
+                <a href="#" onmousedown="move.play()";>
+                <button id="move-down">Down</button></a>
               </div>
             </div>
           </nav>       
