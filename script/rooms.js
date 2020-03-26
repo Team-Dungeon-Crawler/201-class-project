@@ -251,30 +251,13 @@ function displayCombat(character, monster, characterRandomAttack, monsterRandomA
   displayMonsterDescriptionP.textContent = monster.description;
   displayCombatInfoEl.appendChild(displayMonsterDescriptionP);
   var displayCombatP = document.createElement('p');
-  displayCombatP.textContent = (character.name + ' is damaged by ' + monster.name + '\'s Attack roll of ' + monsterRandomAttack + ' resulted in it only having ' + character.health+ ' health left ! ' + monster.name + ' is damaged by ' + character.name + '\'s Attack roll of ' + characterRandomAttack + ' resulted in it only having ' + monster.health+ ' health left ! ');
+  var combatText = (character.name + ' is damaged by ' + monster.name + '\'s Attack roll of ' + monsterRandomAttack + ' resulted in it only having ' + character.health+ ' health left ! ' + monster.name + ' is damaged by ' + character.name + '\'s Attack roll of ' + characterRandomAttack + ' resulted in it only having ' + monster.health+ ' health left ! ');
+  displayCombatP.textContent = combatText;
   displayCombatInfoEl.appendChild(displayCombatP);
+  battleArray.push(combatText);
 
 }
 
 gameLoop();
 
-function detectBattleEventStorage() {
-  var storedBattleEvent = localStorage.getItem('battleEvent');
-  if (storedBattleEvent) {
-    battleArray = JSON.parse(storedBattleEvent);
-    displayBattleLogList();
-  }
-}
 
-function displayBattleLogList() {
-  var displayBattleLogEl = document.getElementById('displayBattleLog');
-  for (var resultIndex = 0; resultIndex < battleArray.length; resultIndex++) {
-    var displayBattleLog = battleArray[resultIndex];
-    var updateBattleLog = document.createElement('li');
-    var rewriteContentToList = displayBattleLog;
-    updateBattleLog.textContent = rewriteContentToList;
-    displayBattleLogEl.appendChild(updateBattleLog);
-  }
-}
-
-detectBattleEventStorage();

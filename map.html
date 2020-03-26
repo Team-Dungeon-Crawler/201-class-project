@@ -2,6 +2,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script>
+      var attack = new Audio();
+      attack.src = "sound/melee.mp3";
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dungeon Crawler!</title>
@@ -15,7 +19,6 @@
     <main>
       <aside id="about-us" class="info">
         <p>about section</p>
-        <ul id="displayBattleLog"></ul>
       </aside>
       <section id="game-area">
         <div class="table">
@@ -31,7 +34,8 @@
                     <button id="move-left">&nbspLeft&nbsp</button>
                   </div>
                   <div id="attack-key">
-                    <button id="attack">Attack</button>
+                    <a href="#" onmousedown="attack.play()";>
+                    <button id="attack">Attack</button></a>
                   </div>
                   <div id="right-key">
                     <button id="move-right">Right</button>

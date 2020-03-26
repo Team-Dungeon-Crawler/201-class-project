@@ -133,4 +133,24 @@ function getRandom(arr, n) {
   return result;
 }
 
+function detectBattleEventStorage() {
+  var storedBattleEvent = localStorage.getItem('battleEvent');
+  if (storedBattleEvent) {
+   var battleArray = JSON.parse(storedBattleEvent);
+    displayBattleLogList(battleArray);
+  }
+}
+
+function displayBattleLogList(battleArray) {
+  var displayBattleLogEl = document.getElementById('displayBattleLog');
+  for (var resultIndex = 0; resultIndex < battleArray.length; resultIndex++) {
+    var displayBattleLog = battleArray[resultIndex];
+    var updateBattleLog = document.createElement('li');
+    var rewriteContentToList = displayBattleLog;
+    updateBattleLog.textContent = rewriteContentToList;
+    displayBattleLogEl.appendChild(updateBattleLog);
+  }
+}
+
+detectBattleEventStorage();
 
