@@ -1,20 +1,32 @@
 'use strict';
-var allMonsters = [];
-// eslint-disable-next-line no-undef
-var testCharacter = new Character('Test', 100, 40, 1, 1);
-var goblin1 = new Monster('Goblin', 1, 30, 'goblin1', 'goblinDescription');
-var boss = new Monster('Evil Wizard', 75, 50, 'boss', 'bossDescription');
+
+import { Character } from './character.js';
+import { Monster } from './monsters.js';
+
+// var allMonsters = localStorage.getItem(JSON.parse(monsters));
+var allMonsters = JSON.parse(localStorage.getItem('monsters'));
+for (var i = 0; i < allMonsters.length; i++) {
+  allMonsters[i] = Object.setPrototypeOf(allMonsters[i], Monster.prototype);
+}
+var character = Object.setPrototypeOf(JSON.parse(localStorage.getItem('character')), Character.prototype);
+var coordinates = JSON.parse(localStorage.getItem('coordinates'));
+
+//eslint-disable-next-line no-undef
+// var testCharacter = new Character('Test', 100, 40, 1, 1);
+// var goblin1 = new Monster('Goblin', 1, 30, 'goblin1', 'goblinDescription');
+// var boss = new Monster('Evil Wizard', 75, 50, 'boss', 'bossDescription');
 
 // hardcoded values
-var xValue = 4;
-var yValue = 4;
+var xValue = coordinates;
+var yValue = coordinates;
+
 // buttons elements
 var moveUpButton = document.getElementById('move-up');
 var moveRightButton = document.getElementById('move-right');
 var moveDownButton = document.getElementById('move-down');
 var moveLeftButton = document.getElementById('move-left');
 var attackButton = document.getElementById('attack');
-attackButton.style.display = "none";
+attackButton.style.display = 'none';
 
 // gameLoop();
 
@@ -23,17 +35,17 @@ function gameLoop() {
   renderTable(xValue, yValue);
 
   // put character in the cell
-  var testCell = document.getElementById('table').rows[testCharacter.xPosition].cells[testCharacter.yPosition];
+  var testCell = document.getElementById('table').rows[character.xPosition].cells[character.yPosition];
   var spanEl = document.createElement('span');
-  spanEl.setAttribute('id', testCharacter.name);
-  spanEl.textContent = testCharacter.name;
+  spanEl.setAttribute('id', character.name);
+  spanEl.textContent = character.name;
   testCell.appendChild(spanEl);
 
   // put monster in the cell
   var testMonsterCell = document.getElementById('table').rows[2].cells[2];
-  var testMonsterCell2 = document.getElementById('table').rows[3].cells[3];
-  testMonsterCell.setAttribute('id', goblin1.monsterId);
-  testMonsterCell2.setAttribute('id', boss.monsterId);
+  var testMonsterCell2 = document.getElementById('table').rows[2].cells[1];
+  testMonsterCell.setAttribute('id', allMonsters[0].monsterId);
+  testMonsterCell2.setAttribute('id', allMonsters[1].monsterId);
 
   move();
   roomDetect();
@@ -41,18 +53,18 @@ function gameLoop() {
 }
 
 function roomDetect() {
-  var currentCellEl = document.getElementById('table').rows[testCharacter.xPosition].cells[testCharacter.yPosition];
+  var currentCellEl = document.getElementById('table').rows[character.xPosition].cells[character.yPosition];
   if (currentCellEl.id) {
     removeEventListeners();
     for (var i = 0; i < allMonsters.length; i++) {
       if (currentCellEl.id === allMonsters[i].monsterId) {
-        battleEvent(testCharacter, allMonsters[i]);
+        battleEvent(character, allMonsters[i]);
       }
     }
   } else {
-      move();
-    }
-  console.log(currentCellEl.id + ' is monster in room')
+    move();
+  }
+  console.log(currentCellEl.id + ' is monster in room');
 }
 
 
@@ -75,52 +87,51 @@ function renderTable(xNumberOfCells, yNumberOfCells) {
 //Handle movement
 var moveUp = function(event) {
   event.preventDefault();
-  var newX = testCharacter.xPosition;
-  var newY = testCharacter.yPosition - 1;
+  var newX = character.xPosition;
+  var newY = character.yPosition - 1;
   if(newY >= 0) {
-    testCharacter.moveTo(newX, newY);
+    character.moveTo(newX, newY);
   }
   roomDetect();
-}
+};
 
 var moveRight = function(event) {
   event.preventDefault();
-  var newX = testCharacter.xPosition + 1;
-  var newY = testCharacter.yPosition;
+  var newX = character.xPosition + 1;
+  var newY = character.yPosition;
   if(newX < document.getElementById('table').getElementsByTagName('tr').length) {
-    testCharacter.moveTo(newX, newY);
+    character.moveTo(newX, newY);
   }
   roomDetect();
-}
+};
 
 var moveDown = function(event) {
   event.preventDefault();
-  var newX = testCharacter.xPosition;
-  var newY = testCharacter.yPosition + 1;
+  var newX = character.xPosition;
+  var newY = character.yPosition + 1;
   if(newY < document.getElementById('table').getElementsByTagName('tr').length) {
-    testCharacter.moveTo(newX, newY);
+    character.moveTo(newX, newY);
   }
   roomDetect();
-}
+};
 
 var moveLeft = function(event) {
   event.preventDefault();
-  var newX = testCharacter.xPosition - 1;
-  var newY = testCharacter.yPosition;
+  var newX = character.xPosition - 1;
+  var newY = character.yPosition;
   if(newX >= 0) {
-    testCharacter.moveTo(newX, newY);
+    character.moveTo(newX, newY);
   }
   roomDetect();
-}
+};
 
 // movement event listeners
 function move() {
-  console.log('move test')
+  console.log('move test');
   moveUpButton.addEventListener('click', moveUp);
   moveRightButton.addEventListener('click', moveRight);
   moveDownButton.addEventListener('click', moveDown);
   moveLeftButton.addEventListener('click', moveLeft);
- 
 }
 
 function removeEventListeners() {
@@ -142,12 +153,12 @@ function battleEvent(character, monster) {
       monster.health = (monster.health - characterRandomAttack);
       if(monster.health <= 0) {
         monster.monsterDeath();
-        attackButton.style.display = "none";
+        attackButton.style.display = 'none';
         break;
       }
       if(character.health <= 0) {
         deathDisplay();
-        attackButton.style.display = "none";
+        attackButton.style.display = 'none';
         break;
       }
     }
@@ -161,12 +172,12 @@ function deathDisplay() {
   deathScreen.innerHTML = '';
   var deathMessage = document.createElement('h1');
   deathMessage.setAttribute('id', 'deathMessage');
-  deathMessage.textContent = "You Died";
+  deathMessage.textContent = 'You Died';
   deathScreen.appendChild(deathMessage);
 }
 
 function displayCombat(character, monster) {
-  var displayCombatInfoEl = document.getElementById('combat-info')
+  var displayCombatInfoEl = document.getElementById('combat-info');
   displayCombatInfoEl.innerHTML = '';
   var displayMonsterDescriptionP = document.createElement('p');
   displayMonsterDescriptionP.textContent = this.description;
@@ -177,4 +188,3 @@ function displayCombat(character, monster) {
 }
 
 gameLoop();
-
