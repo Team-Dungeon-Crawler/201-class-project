@@ -10,6 +10,7 @@ for (var i = 0; i < allMonsters.length; i++) {
 }
 allMonsters = allMonsters[0];
 var character = Object.setPrototypeOf(JSON.parse(localStorage.getItem('character')), Character.prototype);
+
 var coordinates = JSON.parse(localStorage.getItem('coordinates'));
 
 var battleArray = [];
@@ -28,6 +29,7 @@ var moveLeftButton = document.getElementById('move-left');
 var attackButton = document.getElementById('attack');
 attackButton.style.display = 'none';
 
+
 function gameLoop() {
   renderTable(xValue, yValue);
   putCharactersOnBoard();
@@ -41,10 +43,11 @@ function putCharactersOnBoard() {
   var randomCells = getRandom(cells, allCharacters);
   // put character in the cell
   var characterCell = randomCells.shift();
-  var spanEl = document.createElement('span');
-  spanEl.setAttribute('id', character.name);
-  spanEl.textContent = character.name;
-  characterCell.appendChild(spanEl);
+  var imgEl = document.createElement('img');
+  imgEl.setAttribute('id', character.name);
+  imgEl.setAttribute('src', character.characterImgSrc);
+  imgEl.setAttribute('alt', character.characterImgAlt);
+  characterCell.appendChild(imgEl);
   // put monster in the cell
   for (var i = 0; i < allMonsters.length; i++) {
     var monsterCell = randomCells[i];
