@@ -3,7 +3,7 @@
 import { Character } from './character.js';
 import { Monster } from './monsters.js';
 
-
+// array containing all monsters pulled from local storage
 var allMonsters = JSON.parse(localStorage.getItem('monsters'));
 for (var i = 0; i < allMonsters.length; i++) {
   allMonsters[i] = Object.setPrototypeOf(allMonsters[i], Monster.prototype);
@@ -13,11 +13,13 @@ var character = Object.setPrototypeOf(JSON.parse(localStorage.getItem('character
 
 var coordinates = JSON.parse(localStorage.getItem('coordinates'));
 
+// combat log on index.html
 var battleArray = [];
 
+//global variable used in displaying real-time combat info
 var displayCombatInfoEl = document.getElementById('combat-info');
 
-// hardcoded values
+// global coordinate variables used in movement and map placement
 var xValue = coordinates;
 var yValue = coordinates;
 
@@ -29,7 +31,7 @@ var moveLeftButton = document.getElementById('move-left');
 var attackButton = document.getElementById('attack');
 attackButton.style.display = 'none';
 
-
+// General game loop functions that runs basic functionality
 function gameLoop() {
   renderTable(xValue, yValue);
   putCharactersOnBoard();
@@ -37,10 +39,13 @@ function gameLoop() {
   roomDetect();
 }
 
+// Grabs characters and monsters from local storage and places them on the map
 function putCharactersOnBoard() {
+
   var cells = document.getElementsByTagName('td');
   var allCharacters = allMonsters.length + 1;
   var randomCells = getRandom(cells, allCharacters);
+
   // put character in the cell
   var characterCell = randomCells.shift();
   var imgEl = document.createElement('img');
@@ -51,6 +56,7 @@ function putCharactersOnBoard() {
   var coordinates = getCoordinates(character.name);
   character.xPosition = coordinates[0];
   character.yPosition = coordinates[1];
+
   // put monster in the cell
   for (var i = 0; i < allMonsters.length; i++) {
     var monsterCell = randomCells[i];
@@ -58,6 +64,7 @@ function putCharactersOnBoard() {
   }
 }
 
+// calculates coordinates on map cells
 function getCoordinates(characterName) {
   var rows = document.getElementsByTagName('tr');
   var cell = document.getElementById(characterName).parentElement;
@@ -73,6 +80,7 @@ function getCoordinates(characterName) {
   }
 }
 
+// used to randomly populate the game map
 function getRandom(arr, n) {
   var result = new Array(n),
     len = arr.length,
@@ -87,6 +95,7 @@ function getRandom(arr, n) {
   return result;
 }
 
+// displays a description of a monster immediately upon entering a rom containing a monster
 function displayMonsterDescription(monster) {
   displayCombatInfoEl.innerHTML = '';
   var displayMonsterDescriptionP = document.createElement('p');
@@ -94,6 +103,7 @@ function displayMonsterDescription(monster) {
   displayCombatInfoEl.appendChild(displayMonsterDescriptionP);
 }
 
+// checks if a monster is currently in a room after each action
 function roomDetect() {
   var currentCellEl = document.getElementById('table').rows[character.xPosition].cells[character.yPosition];
   if (currentCellEl.id) {
@@ -109,9 +119,9 @@ function roomDetect() {
   } else {
     move();
   }
-  console.log(currentCellEl.id + ' is monster in room');
 }
 
+// renders the actual game map onto the page
 function renderTable(xNumberOfCells, yNumberOfCells) {
   var table = document.getElementById('table');
   table.innerHTML = '';
@@ -133,7 +143,7 @@ function renderTable(xNumberOfCells, yNumberOfCells) {
   }
 }
 
-//Handle movement
+//Handles character movement
 var moveUp = function(event) {
   event.preventDefault();
   var newX = character.xPosition;
@@ -183,17 +193,18 @@ function move() {
 }
 
 function removeEventListeners() {
-  console.log('removed event listener');
   moveUpButton.removeEventListener('click', moveUp);
   moveDownButton.removeEventListener('click', moveDown);
   moveLeftButton.removeEventListener('click', moveLeft);
   moveRightButton.removeEventListener('click', moveRight);
 }
 
+// stores combat log in local storage to be used on index.html
 function storeBattleLog() {
   localStorage.setItem('battleEvent', JSON.stringify(battleArray));
 }
 
+// function to control actual combat once character enters a room containing a monster
 function battleEvent(character, monster) {
   attackButton.style.display = 'block';
   // eslint-disable-next-line no-unused-vars
@@ -201,7 +212,6 @@ function battleEvent(character, monster) {
     while (character.health > 0 || monster.health > 0) {
       var monsterRandomAttack = (Math.ceil(Math.random() * monster.attack));
       var characterRandomAttack = (Math.ceil(Math.random() * character.attack));
-      console.log(characterRandomAttack, monsterRandomAttack, character.health, monster.health);
       character.health = (character.health - monsterRandomAttack);
       monster.health = (monster.health - characterRandomAttack);
       displayCombat(character, monster, characterRandomAttack, monsterRandomAttack);
@@ -220,6 +230,7 @@ function battleEvent(character, monster) {
   });
 }
 
+// shows a game over screen upon death
 function deathDisplay() {
   var deathScreen = document.getElementsByTagName('body')[0];
   deathScreen.setAttribute('id', 'deathScreen');
@@ -246,6 +257,7 @@ function deathDisplay() {
   deathContainer.appendChild(resetButton);
 }
 
+// shows a victory screen once character defeats all monsters
 function victoryDisplay() {
 
   var victoryScreen = document.getElementsByTagName('body')[0];
@@ -278,17 +290,12 @@ function victoryDisplay() {
   victoryContainer.appendChild(newGame);
 }
 
+// checks for monster death and removes monster from array of allMonsters
 function monsterDeath (monster) {
   for (var i = 0; i < allMonsters.length; i++) {
     if(allMonsters[i]) {
       if (monster.monsterId === allMonsters[i].monsterId) {
-      // allMonsters.splice(i, 1);
         delete(allMonsters[i]);
-        console.log(allMonsters);
-        console.log(allMonsters.length);
-        console.log(allMonsters[0]);
-        console.log(allMonsters[1]);
-        console.log(allMonsters[i]);
         var removeMonsterCell = document.getElementById(monster.monsterId);
         removeMonsterCell.removeAttribute('id');
         roomDetect();
@@ -305,6 +312,7 @@ function monsterDeath (monster) {
   }
 }
 
+// shows combat info in real time 
 function displayCombat(character, monster, characterRandomAttack, monsterRandomAttack) {
   var displayCombatInfoEl = document.getElementById('combat-info');
   displayCombatInfoEl.innerHTML = '';
@@ -320,5 +328,3 @@ function displayCombat(character, monster, characterRandomAttack, monsterRandomA
 }
 
 gameLoop();
-console.log(allMonsters);
-
