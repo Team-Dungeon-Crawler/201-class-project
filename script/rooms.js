@@ -108,7 +108,6 @@ function renderTable(xNumberOfCells, yNumberOfCells) {
       } else if (coordinates === 3) {
         cell.setAttribute('class', 'easy');
       }
-      // cell.setAttribute('id', i + ',' + j);
       row.appendChild(cell);
     }
     table.appendChild(row);

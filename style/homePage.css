@@ -43,6 +43,10 @@ h1 {
     width: 230px;
 }
 
+#choose {
+    text-align: center;
+    padding-bottom: 10px;
+}
 
 #upper-field {
     text-align: center;
@@ -61,7 +65,7 @@ h1 {
 
 #start-button {
     margin: 10px auto;
-    margin: 10px 0 0 45%;
+    margin: 10px 0 0 40%;
 }
 
 #log-area {
