@@ -101,6 +101,13 @@ function renderTable(xNumberOfCells, yNumberOfCells) {
     var row = document.createElement('tr');
     for (var j = 0; j < yNumberOfCells; j++) {
       var cell = document.createElement('td');
+      if (coordinates === 7) {
+        cell.setAttribute('class', 'hard');
+      } else if (coordinates === 5) {
+        cell.setAttribute('class', 'medium');
+      } else if (coordinates === 3) {
+        cell.setAttribute('class', 'easy');
+      }
       // cell.setAttribute('id', i + ',' + j);
       row.appendChild(cell);
     }
