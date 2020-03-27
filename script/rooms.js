@@ -48,10 +48,28 @@ function putCharactersOnBoard() {
   imgEl.setAttribute('src', character.characterImgSrc);
   imgEl.setAttribute('alt', character.characterImgAlt);
   characterCell.appendChild(imgEl);
+  var coordinates = getCoordinates(character.name);
+  character.xPosition = coordinates[0];
+  character.yPosition = coordinates[1];
   // put monster in the cell
   for (var i = 0; i < allMonsters.length; i++) {
     var monsterCell = randomCells[i];
     monsterCell.setAttribute('id', allMonsters[i].monsterId);
+  }
+}
+
+function getCoordinates(characterName) {
+  var rows = document.getElementsByTagName('tr');
+  var cell = document.getElementById(characterName).parentElement;
+  for (var i = 0; i < rows.length; i++) {
+    var cells = rows[i].getElementsByTagName('td');
+    for (var j = 0; j < cells.length; j++) {
+      if(cells[j] === cell) {
+        cell.positionIndex = j;
+        cell.rowIndex = i;
+        return [cell.positionIndex, cell.rowIndex];
+      }
+    }
   }
 }
 
