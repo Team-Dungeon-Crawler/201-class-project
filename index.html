@@ -17,25 +17,26 @@
     <main>
       <section id="welcome">
         <h2>Welcome brave adventurers...</h2>
-        <p>...to the Dungeon. Enter if you dare. Test your mettle against the horrors that dwell wihtin. Do you have what it takes to succeed where so many before you... have not?</p>
+        <p>...to the Dungeon. Enter if you dare. Test your mettle against the horrors that dwell within. Do you have what it takes to succeed where so many before you... have not?</p>
       </section>
       <form id="form">
+        <p id="choose">Choose your path</p>
         <fieldset id="upper-field">
           <!-- <label for="characters">Choose a character:</label> -->
             <select id="characters">
-              <option disabled selected hidden>Choose your character</option>
-              <option value="Warrior">Warrior</option>
-              <option value="Rogue">Rogue</option>
-              <option value="Wizard">Wizard</option>
+              <option value="" disabled>Choose your character</option>
+              <option value="Warrior" required>Warrior</option>
+              <option value="Rogue" required>Rogue</option>
+              <option value="Wizard" required>Wizard</option>
             </select>
         </fieldset>
         <fieldset id="lower-field">
           <!-- <label for="levels">Choose a level:</label> -->
             <select id="levels">
-              <option disabled selected hidden>&nbsp&nbsp&nbsp&nbspSelect your difficulty</option>
-              <option value="easy">easy</option>
-              <option value="medium">medium</option>
-              <option value="hard">hard</option>
+              <option value="" disabled>&nbsp&nbsp&nbsp&nbspSelect your difficulty</option>
+              <option value="easy" required>easy</option>
+              <option value="medium" required>medium</option>
+              <option value="hard" required>hard</option>
             </select>
         </fieldset>
         <fieldset id="start-button">
