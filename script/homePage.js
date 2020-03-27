@@ -4,13 +4,13 @@
 import { Character } from './character.js';
 import { Monster } from './monsters.js';
 
-// characters objects
+// character objects
 var character1 = new Character('Warrior', 150, 20, 1, 1, 'images/warrior.png');
 var character2 = new Character('Rogue', 125, 30, 1, 1, 'images/rogue.png');
 var character3 = new Character('Wizard', 100, 40, 1, 1, 'images/wizard.png');
 var allCharacters = [character1, character2, character3];
 
-// monsters descriptions
+// monster descriptions
 var goblinratDescription = 'A grotesque hairless mutated tumorous dog-sized rat is known as a Goblin-rat. As a trained attack and guard animal used by Goblins it stands before you, and engages you in combat with its diseased teeth!!';
 var goblinDescription = 'A squat small green skinned vile barely humanoid creature with a long hooked nose and bat-like ears stands before you, and it snarls as it engages you in combat with a spear!';
 var hobgoblinDescription = 'A cruelly predatory bestial humanoid creature with a catlike blue nose, eyes, mane, and claws wearing scale armor and helm stands before you, and growls with disciplined fury as it engages you in combat with a long sword and shield!';
@@ -19,7 +19,7 @@ var firebatDescription = 'A dog-sized fiendish otherworldly bat wreathed in a au
 var healingFairyDescription = 'A hummingbird-sized little blue-skinned humanoid with dragonfly wings buzzes erratically around the room in a very difficult to hit manner. Knowing that it is the legendary Healing Fairy whose very lifeblood is healing magic and that if you attack and defeat it, it will instinctively project healing at you, you engage it in combat...';
 var bossDescription = 'A pale wizard with sunken eyes in a pitch black robe glares at you with murderous intent as he invokes arcane forces which may spell your DOOM!!!';
 
-// monsters objects
+// monster objects
 var boss = new Monster('Evil Wizard', 60, 35, 'boss', bossDescription);
 var goblinrat1 = new Monster('Goblin-rat', 1, 5, 'goblinrat1', goblinratDescription);
 var goblinrat2 = new Monster('Goblin-rat', 1, 5, 'goblinrat2', goblinratDescription);
@@ -49,6 +49,7 @@ var firebat5 = new Monster('Firebat', 5, 20, 'firebat5', firebatDescription);
 var healingFairy1 = new Monster('Healing Fairy', 100, -15, 'healingFairy1', healingFairyDescription);
 var healingFairy2 = new Monster('Healing Fairy', 100, -15, 'healingFairy2', healingFairyDescription);
 
+// array of all possible monsters pushed to local storage
 var allMonsters = [
   goblinrat1, goblinrat2, goblinrat3, goblinrat4, goblinrat5,
   goblin1, goblin2, goblin3, goblin4, goblin5,
@@ -57,10 +58,11 @@ var allMonsters = [
   firebat1, firebat2, firebat3, firebat4, firebat5,
   healingFairy1, healingFairy2];
 
-
+//index.html form that allows user to choose character and difficulty
 var formEl = document.getElementById('form');
 formEl.addEventListener('submit', handleStartButton);
 
+// moves user to map.html once selection has been made
 function handleStartButton(event) {
   event.preventDefault();
   getCharacter();
@@ -69,6 +71,7 @@ function handleStartButton(event) {
   window.location = 'map.html';
 }
 
+// places selected character into local storage to be used on map.html
 function getCharacter() {
   var charactersSelectorEl = document.getElementById('characters');
   for (var i = 0; i < allCharacters.length; i++) {
@@ -78,6 +81,7 @@ function getCharacter() {
   }
 }
 
+// checks for user difficulty selection
 function getCoordinates() {
   var levelsSelectorEl = document.getElementById('levels');
   var levelValue = levelsSelectorEl.value;
@@ -92,6 +96,7 @@ function getCoordinates() {
   }
 }
 
+// places monsters into local storage to be used on map.html
 function getMonsters() {
   var levelsSelectorEl = document.getElementById('levels');
   var levelValue = levelsSelectorEl.value;
@@ -99,6 +104,7 @@ function getMonsters() {
   localStorage.monsters = JSON.stringify(monsters);
 }
 
+// checks for user difficulty selection and grabs appropriate amount of monsters 
 function generateMonsters(level) {
   var monstersOnBoard = [];
   if(level === 'easy') {
@@ -113,6 +119,7 @@ function generateMonsters(level) {
   return monstersOnBoard;
 }
 
+// randomly grabs monsters from array to populate map using difficulty as guide for amount of monsters
 function generateRandomNumberOfMonsters(expectedNumber) {
   var monsters = [];
   var randomMonsters = getRandom(allMonsters, expectedNumber - 1);
@@ -120,6 +127,7 @@ function generateRandomNumberOfMonsters(expectedNumber) {
   return monsters;
 }
 
+// function that does the calculations for generateRandomNumberOfMonsters() 
 function getRandom(arr, n) {
   var result = new Array(n),
     len = arr.length,
@@ -135,6 +143,7 @@ function getRandom(arr, n) {
   return result;
 }
 
+// function that pulls combat log info local storage to be placed on index.html
 function detectBattleEventStorage() {
   var storedBattleEvent = localStorage.getItem('battleEvent');
   if (storedBattleEvent) {
@@ -143,6 +152,7 @@ function detectBattleEventStorage() {
   }
 }
 
+// renders combat log info on index.html
 function displayBattleLogList(battleArray) {
   var displayBattleLogEl = document.getElementById('displayBattleLog');
   for (var resultIndex = 0; resultIndex < battleArray.length; resultIndex++) {

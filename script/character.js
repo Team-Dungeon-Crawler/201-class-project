@@ -2,7 +2,6 @@
 
 export { Character };
 
-// this.xPosition and this.yPosition are hardcoded values
 function Character(name, health, attack, xPosition, yPosition, characterImgSrc) {
   this.name = name;
   this.health = health;
@@ -13,7 +12,7 @@ function Character(name, health, attack, xPosition, yPosition, characterImgSrc) 
   this.characterImgAlt = name;
 }
 
-// add move to method to Character constructor
+// add movement method to Character constructor
 Character.prototype.moveTo = function(newXPosition, newYPosition) {
   //clear
   var characterEl = document.getElementById(this.name);
