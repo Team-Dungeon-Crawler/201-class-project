@@ -5,9 +5,10 @@ import { Character } from './character.js';
 import { Monster } from './monsters.js';
 
 // characters objects
-var character1 = new Character('character1', 150, 30, 1, 1);
-var character2 = new Character('character2', 125, 20, 1, 1);
-var character3 = new Character('character3', 100, 40, 1, 1);
+var character1 = new Character('Warrior', 120, 20, 1, 1, 'images/warrior.png');
+var character2 = new Character('Rogue', 100, 30, 1, 1, 'images/rogue.png');
+var character3 = new Character('Wizard', 85, 40, 1, 1, 'images/wizard.png');
+
 var allCharacters = [character1, character2, character3];
 
 // monsters descriptions
