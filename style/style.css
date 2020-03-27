@@ -1,8 +1,13 @@
-/* font for death screen */
+/* font for death/victory screens */
+/* <link href="https://fonts.googleapis.com/css?family=Old+Standard+TT&display=swap" rel="stylesheet"> */
 /* font-family: 'Old Standard TT', serif; */
 
+ /* font for page header
+ <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" rel="stylesheet">
+ font-family: 'Press Start 2P', cursive; */
+
 body {
-  background-color: antiquewhite;
+  background-color: #5f6769;
   width: 1000px;
   margin: 0 auto;
 }
@@ -14,6 +19,9 @@ header {
 
 h1 {
   font-size: 50px;
+  font-family: 'Press Start 2P', cursive;
+  margin-top: 15px;
+  margin-bottom: 30px;
 }
 
 #about-us {

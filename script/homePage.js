@@ -5,8 +5,8 @@ import { Character } from './character.js';
 import { Monster } from './monsters.js';
 
 // characters objects
-var character1 = new Character('character1', 100, 30, 1, 1);
-var character2 = new Character('character2', 100, 20, 1, 1);
+var character1 = new Character('character1', 150, 30, 1, 1);
+var character2 = new Character('character2', 125, 20, 1, 1);
 var character3 = new Character('character3', 100, 40, 1, 1);
 var allCharacters = [character1, character2, character3];
 
@@ -20,7 +20,7 @@ var healingFairyDescription = 'A hummingbird-sized little blue-skinned humanoid 
 var bossDescription = 'A pale wizard with sunken eyes in a pitch black robe glares at you with murderous intent as he invokes arcane forces which may spell your DOOM!!!';
 
 // monsters objects
-var boss = new Monster('Evil Wizard', 60, 60, 'boss', bossDescription);
+var boss = new Monster('Evil Wizard', 60, 45, 'boss', bossDescription);
 var goblinrat1 = new Monster('Goblin-rat', 1, 5, 'goblinrat1', goblinratDescription);
 var goblinrat2 = new Monster('Goblin-rat', 1, 5, 'goblinrat2', goblinratDescription);
 var goblinrat3 = new Monster('Goblin-rat', 1, 5, 'goblinrat3', goblinratDescription);
