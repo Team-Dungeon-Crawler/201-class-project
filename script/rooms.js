@@ -216,13 +216,13 @@ function battleEvent(character, monster) {
       monster.health = (monster.health - characterRandomAttack);
       displayCombat(character, monster, characterRandomAttack, monsterRandomAttack);
       storeBattleLog();
-      if(monster.health <= 0) {
-        monsterDeath(monster);
+      if(character.health <= 0) {
+        deathDisplay();
         attackButton.style.display = 'none';
         break;
       }
-      if(character.health <= 0) {
-        deathDisplay();
+      if(monster.health <= 0) {
+        monsterDeath(monster);
         attackButton.style.display = 'none';
         break;
       }
@@ -320,7 +320,12 @@ function displayCombat(character, monster, characterRandomAttack, monsterRandomA
   displayMonsterDescriptionP.textContent = monster.description;
   displayCombatInfoEl.appendChild(displayMonsterDescriptionP);
   var displayCombatP = document.createElement('p');
-  var combatText = (character.name + ' is damaged by ' + monster.name + '\'s Attack roll of ' + monsterRandomAttack + ' resulted in it only having ' + character.health+ ' health left ! ' + monster.name + ' is damaged by ' + character.name + '\'s Attack roll of ' + characterRandomAttack + ' resulted in it only having ' + monster.health+ ' health left ! ');
+  var combatText = '';
+  if (monsterRandomAttack > 0) {
+    combatText = (character.name + ' is damaged by ' + monster.name + '\'s Attack roll of ' + monsterRandomAttack + ' resulted in you only having ' + character.health+ ' health left! ' + monster.name + ' is damaged by ' + character.name + '\'s Attack roll of ' + characterRandomAttack + ' resulted in it only having ' + monster.health+ ' health left! ');
+  } else {
+    combatText = (character.name + ' is healed by ' + monster.name + '\'s magical blood for ' + (monsterRandomAttack * -1) + ' vitality gained, resulted in you having ' + character.health+ ' health! ' + monster.name + ' is damaged by ' + character.name + '\'s Attack roll of ' + characterRandomAttack + ' resulted in it only having ' + monster.health+ ' health left! ');
+  }
   displayCombatP.textContent = combatText;
   displayCombatInfoEl.appendChild(displayCombatP);
   battleArray.push(combatText);
