@@ -11,12 +11,12 @@ var character3 = new Character('Wizard', 100, 40, 1, 1, 'images/wizard.png');
 var allCharacters = [character1, character2, character3];
 
 // monster descriptions
-var goblinratDescription = 'A grotesque hairless mutated tumorous dog-sized rat is known as a Goblin-rat. As a trained attack and guard animal used by Goblins it stands before you, and engages you in combat with its diseased teeth!!';
+var goblinratDescription = 'This grotesque hairless mutated tumorous dog-sized rat is known as a Goblin-rat. As a trained attack and guard animal used by Goblins, it cuatiously skulks around you before leaping, attacking you with its diseased teeth!!';
 var goblinDescription = 'A squat small green skinned vile barely humanoid creature with a long hooked nose and bat-like ears stands before you, and it snarls as it engages you in combat with a spear!';
 var hobgoblinDescription = 'A cruelly predatory bestial humanoid creature with a catlike blue nose, eyes, mane, and claws wearing scale armor and helm stands before you, and growls with disciplined fury as it engages you in combat with a long sword and shield!';
-var bugbearDescription = 'A bear-like fury squat-faced humanoid wearing leather armor stands before you, and bellows in rage as it engages you in combat with a massive two-handed axe!';
+var bugbearDescription = 'A bear-like fury squat-faced humanoid wearing leather armor stands before you, and bellowing in rage as it engages you in combat with a massive two-handed axe!';
 var firebatDescription = 'A dog-sized fiendish otherworldly bat wreathed in a aura of fire flits in the room about you, engaging you in combat by spitting a gouts of flame!!';
-var healingFairyDescription = 'A hummingbird-sized little blue-skinned humanoid with dragonfly wings buzzes erratically around the room in a very difficult to hit manner. Knowing that it is the legendary Healing Fairy whose very lifeblood is healing magic and that if you attack and defeat it, it will instinctively project healing at you, you engage it in combat...';
+var healingFairyDescription = 'A hummingbird-sized little blue-skinned humanoid with dragonfly wings buzzes erratically around the room in a very difficult to hit manner. Knowing this creature is the legendary Healing Fairy whose very lifeblood is healing magic and that if you attack and defeat it, it will instinctively project healing at you, you engage it in combat...';
 var bossDescription = 'A pale wizard with sunken eyes in a pitch black robe glares at you with murderous intent as he invokes arcane forces which may spell your DOOM!!!';
 
 // monster objects
